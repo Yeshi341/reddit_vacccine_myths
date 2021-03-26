@@ -6,8 +6,7 @@ import string
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
-
-
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 
 # function to clean
@@ -62,3 +61,15 @@ def stemming(tokenized_text):
     # remove any stop words in the text
     stemmed = [stemmer.stem(word) for word in tokenized_text]
     return ' '.join(stemmed)
+
+def find_sentiment(text):
+    sid = SentimentIntensityAnalyzer()
+    polarity_score = sid.polarity_scores(text)['compound']
+    
+    if polarity_score < 0:
+        sentiment = "negative"
+    elif polarity_score > 0:
+        sentiment = "positive"
+    elif polarity_score == 0:
+        sentiment = 'neutral'
+    return sentiment
