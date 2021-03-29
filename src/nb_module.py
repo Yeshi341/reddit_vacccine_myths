@@ -73,3 +73,22 @@ def find_sentiment(text):
     elif polarity_score == 0:
         sentiment = 'neutral'
     return sentiment
+
+# function to return a count vectorized representation of text as a dictionary
+def count_vectorize(text, vocab=None):
+# vocab is an optional parameter set to default to None
+# vocab is just in case we use a vocabulary that contains words not seen in the song
+
+    if vocab:
+        unique_words = vocab
+    else:
+        unique_words = list(set(text))
+    
+    # empty dictionary with keys as the unique words in the corpus
+    text_dict = {i:0 for i in unique_words}
+    
+    # adding count values for each unique words
+    for t in text:
+        text_dict[t] +=1
+    
+    return text_dict
